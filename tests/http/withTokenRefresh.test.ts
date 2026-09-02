@@ -70,13 +70,8 @@ test("AC3: throws AuthenticationError and does not retry when refresh fails", as
 });
 
 test("AC4: does not attempt a second refresh if the retried call also fails auth", async () => {
-  const secondResponse: ApiResult = { status: 401, body: "still expired" };
-  const apiCall = countingMock(async (_token: string) => {
-    if (apiCall.calls.length === 0) {
-      return { status: 401, body: "expired" };
-    }
-    return secondResponse;
-  });
+  const stillExpired: ApiResult = { status: 401, body: "still expired" };
+  const apiCall = countingMock(async (_token: string) => stillExpired);
   const refreshToken = countingMock(async () => "new-token");
   const sessionManager = new InMemorySessionManager("old-token", refreshToken.fn);
 
@@ -86,5 +81,5 @@ test("AC4: does not attempt a second refresh if the retried call also fails auth
 
   assert.equal(refreshToken.calls.length, 1);
   assert.equal(apiCall.calls.length, 2);
-  assert.deepEqual(result, secondResponse);
+  assert.deepEqual(result, stillExpired);
 });
