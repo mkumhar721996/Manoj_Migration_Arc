@@ -71,10 +71,12 @@ class TestFailureReasonSanitization(unittest.TestCase):
         self.assertNotIn("482913", joined_output)
 
     def test_failure_reason_strips_password_like_and_token_like_values(self):
+        fake_jwt = ".".join(["placeholdersegment"] * 3)
+        fake_bare_token = "placeholdertoken" * 2
         cases = [
             "password=Sup3rSecret!",
-            "token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U",
-            "aZ3kQ9mN2pL8vX5rT1yU6wE4iO7cB0dF",
+            f"token={fake_jwt}",
+            fake_bare_token,
         ]
         for raw_reason in cases:
             with self.subTest(raw_reason=raw_reason):
@@ -91,9 +93,7 @@ class TestFailureReasonSanitization(unittest.TestCase):
                 joined_output = "\n".join(cm.output)
                 self.assertNotIn(raw_reason, joined_output)
                 self.assertNotIn("Sup3rSecret!", joined_output)
-                self.assertNotIn(
-                    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0", joined_output
-                )
+                self.assertNotIn(fake_jwt, joined_output)
 
 
 _ALLOWED_PAYLOAD_KEYS = {
