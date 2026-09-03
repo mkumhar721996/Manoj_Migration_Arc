@@ -1,0 +1,40 @@
+:root {
+  --color-bg-page: #fcfaf6;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-muted: #f3efe9;
+  --color-bg-inverse: #151212;
+  --color-border-default: #ebe7df;
+  --color-border-on-inverse: #ffffff;
+  --color-fg-default: #151212;
+  --color-fg-on-inverse: #ffffff;
+  --color-fg-muted: #6b6661;
+  --color-brand-accent: #c82d25;
+  --color-accent-classic-tag: #2a7043;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Geist", sans-serif;
+
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-7: 16px;
+  --space-8: 18px;
+  --space-9: 20px;
+  --space-10: 24px;
+  --space-11: 32px;
+  --space-12: 40px;
+  --space-13: 48px;
+  --space-14: 56px;
+  --space-15: 64px;
+  --space-16: 80px;
+  --space-17: 120px;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --shadow-float: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
