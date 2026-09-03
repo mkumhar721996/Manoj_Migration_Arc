@@ -1,4 +1,5 @@
 import { renderCartPage } from "./cartView.js";
+import { renderCartBadge } from "./cartBadge.js";
 import { createCartStore } from "./cartStore.js";
 
 export function handleAction({ actionId, itemId, store, navigate }) {
@@ -25,13 +26,18 @@ function defaultNavigate(path) {
 
 export function mountCartApp({
   container,
+  badgeContainer,
   storage = window.localStorage,
   navigate = defaultNavigate,
 }) {
   const store = createCartStore({ storage, now: Date.now });
 
   function render() {
-    container.innerHTML = renderCartPage(store.getState());
+    const state = store.getState();
+    container.innerHTML = renderCartPage(state);
+    if (badgeContainer) {
+      badgeContainer.innerHTML = renderCartBadge(state.itemCount);
+    }
   }
 
   container.addEventListener("click", (event) => {

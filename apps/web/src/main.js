@@ -1,3 +1,6 @@
 import { mountCartApp } from "./cart/cartApp.js";
 
-mountCartApp({ container: document.getElementById("root") });
+mountCartApp({
+  container: document.getElementById("root"),
+  badgeContainer: document.getElementById("cart-badge"),
+});

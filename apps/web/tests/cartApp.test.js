@@ -2,6 +2,7 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { handleAction } from "../src/cart/cartApp.js";
 import { createCartStore } from "../src/cart/cartStore.js";
+import { renderCartBadge } from "../src/cart/cartBadge.js";
 
 function createMemoryStorage(initial = {}) {
   const data = new Map(Object.entries(initial));
@@ -89,5 +90,41 @@ describe("handleAction: increment/decrement", () => {
     handleAction({ actionId: "decrement", itemId: "margherita", store, navigate: () => {} });
 
     assert.equal(store.getState().items[0].quantity, 1);
+  });
+});
+
+describe("cart badge reacts to store subscription", () => {
+  test("badge markup reflects the updated total unit count after a quantity change", () => {
+    const store = createCartStore({
+      storage: createMemoryStorage(),
+      now: () => 1,
+      initialItems: [makeItem({ quantity: 2 }), makeItem({ id: "diavola", quantity: 1 })],
+    });
+
+    let badgeMarkup = renderCartBadge(store.getState().itemCount);
+    store.subscribe((state) => {
+      badgeMarkup = renderCartBadge(state.itemCount);
+    });
+
+    handleAction({ actionId: "increment", itemId: "margherita", store, navigate: () => {} });
+
+    assert.match(badgeMarkup, />4</);
+  });
+
+  test("badge markup is empty after removing the last item", () => {
+    const store = createCartStore({
+      storage: createMemoryStorage(),
+      now: () => 1,
+      initialItems: [makeItem({ quantity: 1 })],
+    });
+
+    let badgeMarkup = renderCartBadge(store.getState().itemCount);
+    store.subscribe((state) => {
+      badgeMarkup = renderCartBadge(state.itemCount);
+    });
+
+    handleAction({ actionId: "decrement", itemId: "margherita", store, navigate: () => {} });
+
+    assert.equal(badgeMarkup, "");
   });
 });

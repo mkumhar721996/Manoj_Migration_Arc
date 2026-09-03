@@ -97,3 +97,17 @@ describe("renderCartPage with an error", () => {
     assert.match(html, /We couldn't save your cart changes/);
   });
 });
+
+describe("renderCartPage escaping", () => {
+  test("escapes a double quote in an item id so it cannot break out of the data-id attribute", () => {
+    const html = renderCartPage({
+      items: [makeItem({ id: `test" onmouseover="alert(1)` })],
+      subtotal: 29,
+      itemCount: 2,
+      error: null,
+    });
+
+    assert.doesNotMatch(html, /data-id="test" onmouseover="alert\(1\)"/);
+    assert.match(html, /data-id="test&quot; onmouseover=&quot;alert\(1\)"/);
+  });
+});

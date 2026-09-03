@@ -1,13 +1,7 @@
 import { lineTotal, MAX_QUANTITY } from "./cartMath.js";
 import { formatUSD } from "./formatCurrency.js";
 import { renderButton } from "../components/button.js";
-
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
+import { escapeHtml } from "../utils/escapeHtml.js";
 
 function renderStepper(item) {
   return `

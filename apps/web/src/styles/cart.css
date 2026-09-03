@@ -5,6 +5,47 @@ body {
   font-family: var(--font-body);
 }
 
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-bg-inverse);
+  color: var(--color-fg-on-inverse);
+  padding: var(--space-7) var(--space-11);
+}
+
+.site-header__brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.site-header__cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+}
+
+.cart-badge__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-lg);
+  background: var(--color-brand-accent);
+  color: var(--color-fg-on-inverse);
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .cart-page {
   max-width: 720px;
   margin: 0 auto;
