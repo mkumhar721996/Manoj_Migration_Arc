@@ -14,4 +14,13 @@ describe("renderCartBadge", () => {
   test("renders nothing when the cart has no items", () => {
     assert.equal(renderCartBadge(0), "");
   });
+
+  test("escapes a non-numeric, HTML-bearing itemCount instead of injecting it raw", () => {
+    const malicious = '<img src=x onerror="alert(1)">';
+
+    const markup = renderCartBadge(malicious);
+
+    assert.doesNotMatch(markup, /<img/);
+    assert.match(markup, /&lt;img/);
+  });
 });
