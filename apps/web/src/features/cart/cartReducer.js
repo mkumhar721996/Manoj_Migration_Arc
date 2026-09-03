@@ -48,9 +48,6 @@ export function cartReducer(state, action) {
         ),
       };
     }
-    case "HYDRATE": {
-      return { items: action.items ?? [] };
-    }
     default:
       return state;
   }

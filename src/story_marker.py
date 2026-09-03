@@ -1,4 +1,4 @@
-STORY_ID = "MANOJ-MIGRATION-ARC-STORY-010"
+STORY_ID = "MANOJ-MIGRATION-ARC-STORY-018"
 
 
 def get_story_marker() -> str:

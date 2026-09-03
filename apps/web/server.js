@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
-import { extname, join } from "node:path";
+import { extname } from "node:path";
+import { resolveStaticFilePath } from "./staticFileResolver.js";
 
 /**
  * Minimal dependency-free static file server standing in for a bundler dev
@@ -22,10 +23,13 @@ const mimeTypes = {
 };
 
 createServer(async (req, res) => {
-  const requestPath = req.url === "/" ? "/index.html" : req.url;
-  const resolvedPath = requestPath.startsWith("/images")
-    ? join(root, "public", requestPath)
-    : join(root, requestPath);
+  const resolvedPath = resolveStaticFilePath(root, req.url);
+
+  if (!resolvedPath) {
+    res.writeHead(400);
+    res.end("Bad request");
+    return;
+  }
 
   try {
     const body = await readFile(resolvedPath);
