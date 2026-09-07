@@ -4,6 +4,7 @@ import {
   OUT_OF_STOCK_MESSAGE,
   PAYMENT_FAILED_MESSAGE,
   INVALID_QUANTITY_MESSAGE,
+  UNKNOWN_ERROR_MESSAGE,
 } from "./orderMessages.js";
 
 export const PAYMENT_METHODS = ["card", "upi", "netbanking", "cod"];
@@ -70,7 +71,7 @@ export function createOrderStore({ product, gateway, initialQuantity = 1 }) {
       } else if (err instanceof PaymentFailedError) {
         error = PAYMENT_FAILED_MESSAGE;
       } else {
-        throw err;
+        error = UNKNOWN_ERROR_MESSAGE;
       }
     }
 

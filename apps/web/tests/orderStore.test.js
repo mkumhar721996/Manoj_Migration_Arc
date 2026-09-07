@@ -6,6 +6,7 @@ import {
   OUT_OF_STOCK_MESSAGE,
   PAYMENT_FAILED_MESSAGE,
   INVALID_QUANTITY_MESSAGE,
+  UNKNOWN_ERROR_MESSAGE,
 } from "../src/order/orderMessages.js";
 
 function makeProduct(overrides = {}) {
@@ -104,6 +105,26 @@ describe("submitOrder: payment failure", () => {
     const state = store.getState();
     assert.equal(state.status, "error");
     assert.equal(state.error, PAYMENT_FAILED_MESSAGE);
+    assert.equal(state.orderId, null);
+  });
+});
+
+describe("submitOrder: unexpected gateway error", () => {
+  test("sets a generic error message and never crashes or creates an order", async () => {
+    const gateway = makeFakeGateway({
+      placeOrder: async () => {
+        throw new Error("network timeout");
+      },
+    });
+    const store = createOrderStore({ product: makeProduct(), gateway });
+    store.setQuantity(1);
+    store.setPaymentMethod("card");
+
+    await store.submitOrder();
+
+    const state = store.getState();
+    assert.equal(state.status, "error");
+    assert.equal(state.error, UNKNOWN_ERROR_MESSAGE);
     assert.equal(state.orderId, null);
   });
 });
