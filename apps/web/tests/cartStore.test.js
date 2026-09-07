@@ -73,6 +73,68 @@ describe("incrementQuantity", () => {
   });
 });
 
+describe("addItem", () => {
+  test("adds a new item with quantity 1 when it is not already in the cart", () => {
+    const storage = createMemoryStorage();
+    const store = createCartStore({
+      storage,
+      now: () => 1,
+      initialItems: [],
+    });
+
+    store.addItem({ id: "diavola", name: "Diavola", unitPrice: 16.5 });
+
+    const state = store.getState();
+    assert.equal(state.items.length, 1);
+    assert.equal(state.items[0].quantity, 1);
+    assert.equal(state.itemCount, 1);
+    assert.equal(state.subtotal, 16.5);
+  });
+
+  test("increments the quantity of an item already in the cart", () => {
+    const storage = createMemoryStorage();
+    const store = createCartStore({
+      storage,
+      now: () => 1,
+      initialItems: [makeItem({ quantity: 2 })],
+    });
+
+    store.addItem({ id: "margherita", name: "Classic Margherita", unitPrice: 14.5 });
+
+    const state = store.getState();
+    assert.equal(state.items.length, 1);
+    assert.equal(state.items[0].quantity, 3);
+  });
+
+  test("persists the added item to storage immediately", () => {
+    const storage = createMemoryStorage();
+    const store = createCartStore({
+      storage,
+      now: () => 42,
+      initialItems: [],
+    });
+
+    store.addItem({ id: "diavola", name: "Diavola", unitPrice: 16.5 });
+
+    const persisted = JSON.parse(storage.getItem(CART_STORAGE_KEY));
+    assert.equal(persisted.items[0].quantity, 1);
+    assert.equal(persisted.savedAt, 42);
+  });
+
+  test("does not increment past the maximum quantity", () => {
+    const storage = createMemoryStorage();
+    const store = createCartStore({
+      storage,
+      now: () => 1,
+      initialItems: [makeItem({ quantity: MAX_QUANTITY })],
+    });
+
+    store.addItem({ id: "margherita", name: "Classic Margherita", unitPrice: 14.5 });
+
+    assert.equal(store.getState().items[0].quantity, MAX_QUANTITY);
+  });
+});
+
 describe("decrementQuantity", () => {
   test("decreases quantity by 1 when quantity is greater than 1", () => {
     const storage = createMemoryStorage();

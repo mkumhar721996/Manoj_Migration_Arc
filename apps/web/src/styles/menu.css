@@ -1,0 +1,107 @@
+.menu-page-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-11) var(--space-16);
+  padding-right: 428px;
+}
+
+.menu-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-9);
+}
+
+.menu-item-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-7);
+}
+
+.menu-item-card__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.menu-item-card__price {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.cart-summary-panel {
+  position: fixed;
+  right: var(--space-10);
+  bottom: var(--space-10);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+  width: 380px;
+  background: var(--color-bg-inverse);
+  color: var(--color-fg-on-inverse);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
+  padding: var(--space-8);
+}
+
+.cart-summary-panel__icon-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-icon-tile);
+  background: var(--color-brand-accent);
+}
+
+.cart-summary-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.cart-summary-panel__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.cart-summary-panel__details {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-6);
+  font-size: 14px;
+}
+
+.cart-summary-panel__total {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.button--compact {
+  font-size: 14px;
+  padding: var(--space-4) var(--space-7);
+}
+
+@media (max-width: 767px) {
+  .menu-page-content {
+    padding-right: var(--space-16);
+  }
+
+  .cart-summary-panel {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+}

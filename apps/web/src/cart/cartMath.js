@@ -11,3 +11,7 @@ export function subtotal(items) {
 export function getCartItemCount(items) {
   return items.reduce((sum, item) => sum + item.quantity, 0);
 }
+
+export function formatItemCountLabel(count) {
+  return `${count} item${count === 1 ? "" : "s"}`;
+}

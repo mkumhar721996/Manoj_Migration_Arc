@@ -47,6 +47,24 @@ export function createCartStore({ storage, now = Date.now, initialItems }) {
     );
   }
 
+  function addItem(item) {
+    const target = items.find((existing) => existing.id === item.id);
+
+    if (target) {
+      if (target.quantity >= MAX_QUANTITY) return;
+      commit(
+        items.map((existing) =>
+          existing.id === item.id
+            ? { ...existing, quantity: existing.quantity + 1 }
+            : existing,
+        ),
+      );
+      return;
+    }
+
+    commit([...items, { ...item, quantity: 1 }]);
+  }
+
   function decrementQuantity(id) {
     const target = items.find((item) => item.id === id);
     if (!target) return;
@@ -66,5 +84,5 @@ export function createCartStore({ storage, now = Date.now, initialItems }) {
     return () => listeners.delete(listener);
   }
 
-  return { getState, subscribe, incrementQuantity, decrementQuantity };
+  return { getState, subscribe, addItem, incrementQuantity, decrementQuantity };
 }

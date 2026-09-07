@@ -2,7 +2,14 @@ import { renderCartPage } from "./cartView.js";
 import { renderCartBadge } from "./cartBadge.js";
 import { createCartStore } from "./cartStore.js";
 
-export function handleAction({ actionId, itemId, store, navigate }) {
+export function handleAction({
+  actionId,
+  itemId,
+  store,
+  navigate,
+  checkoutUrl = "/checkout",
+  menuItems,
+}) {
   switch (actionId) {
     case "increment":
       store.incrementQuantity(itemId);
@@ -10,9 +17,14 @@ export function handleAction({ actionId, itemId, store, navigate }) {
     case "decrement":
       store.decrementQuantity(itemId);
       break;
+    case "add-to-cart": {
+      const menuItem = menuItems?.find((item) => item.id === itemId);
+      if (menuItem) store.addItem(menuItem);
+      break;
+    }
     case "checkout":
       if (store.getState().items.length > 0) {
-        navigate("/checkout");
+        navigate(checkoutUrl);
       }
       break;
     default:

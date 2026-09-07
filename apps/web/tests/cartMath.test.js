@@ -2,6 +2,7 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import {
   MAX_QUANTITY,
+  formatItemCountLabel,
   getCartItemCount,
   lineTotal,
   subtotal,
@@ -54,5 +55,19 @@ describe("getCartItemCount", () => {
 describe("MAX_QUANTITY", () => {
   test("is 99", () => {
     assert.equal(MAX_QUANTITY, 99);
+  });
+});
+
+describe("formatItemCountLabel", () => {
+  test("returns '0 items' for an empty cart", () => {
+    assert.equal(formatItemCountLabel(0), "0 items");
+  });
+
+  test("returns '1 item' (singular) for a count of 1", () => {
+    assert.equal(formatItemCountLabel(1), "1 item");
+  });
+
+  test("returns '{n} items' (plural) for counts greater than 1", () => {
+    assert.equal(formatItemCountLabel(3), "3 items");
   });
 });

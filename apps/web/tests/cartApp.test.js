@@ -28,7 +28,27 @@ function makeItem(overrides = {}) {
 }
 
 describe("handleAction: checkout", () => {
-  test("navigates to /checkout when the cart has items", () => {
+  test("navigates to the configured checkoutUrl when the cart has items", () => {
+    const store = createCartStore({
+      storage: createMemoryStorage(),
+      now: () => 1,
+      initialItems: [makeItem()],
+    });
+    let navigatedTo = null;
+
+    handleAction({
+      actionId: "checkout",
+      store,
+      checkoutUrl: "/some-external-url",
+      navigate: (path) => {
+        navigatedTo = path;
+      },
+    });
+
+    assert.equal(navigatedTo, "/some-external-url");
+  });
+
+  test("defaults to /checkout when no checkoutUrl is configured", () => {
     const store = createCartStore({
       storage: createMemoryStorage(),
       now: () => 1,
@@ -90,6 +110,52 @@ describe("handleAction: increment/decrement", () => {
     handleAction({ actionId: "decrement", itemId: "margherita", store, navigate: () => {} });
 
     assert.equal(store.getState().items[0].quantity, 1);
+  });
+});
+
+describe("handleAction: add-to-cart", () => {
+  const menuItems = [
+    { id: "diavola", name: "Diavola", unitPrice: 16.5 },
+    { id: "margherita", name: "Classic Margherita", unitPrice: 14.5 },
+  ];
+
+  test("looks up the item in the catalog and adds it to the store", () => {
+    const store = createCartStore({
+      storage: createMemoryStorage(),
+      now: () => 1,
+      initialItems: [],
+    });
+
+    handleAction({
+      actionId: "add-to-cart",
+      itemId: "diavola",
+      store,
+      menuItems,
+      navigate: () => {},
+    });
+
+    const state = store.getState();
+    assert.equal(state.items.length, 1);
+    assert.equal(state.items[0].id, "diavola");
+    assert.equal(state.items[0].quantity, 1);
+  });
+
+  test("increments an existing cart item when added again", () => {
+    const store = createCartStore({
+      storage: createMemoryStorage(),
+      now: () => 1,
+      initialItems: [makeItem({ quantity: 1 })],
+    });
+
+    handleAction({
+      actionId: "add-to-cart",
+      itemId: "margherita",
+      store,
+      menuItems,
+      navigate: () => {},
+    });
+
+    assert.equal(store.getState().items[0].quantity, 2);
   });
 });
 

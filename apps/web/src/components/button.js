@@ -2,14 +2,18 @@ import { escapeHtml } from "../utils/escapeHtml.js";
 
 export function renderButton({
   variant,
+  size,
   label,
   actionId,
   itemId,
   disabled = false,
   ariaLabel,
 }) {
+  const classes = ["button", `button--${variant}`];
+  if (size) classes.push(`button--${size}`);
+
   const attrs = [
-    `class="button button--${variant}"`,
+    `class="${classes.join(" ")}"`,
     `data-action="${escapeHtml(actionId)}"`,
     "type=\"button\"",
   ];
