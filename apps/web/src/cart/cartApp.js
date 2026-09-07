@@ -15,6 +15,9 @@ export function handleAction({ actionId, itemId, store, navigate }) {
         navigate("/checkout");
       }
       break;
+    case "return-to-menu":
+      navigate("/menu");
+      break;
     default:
       break;
   }

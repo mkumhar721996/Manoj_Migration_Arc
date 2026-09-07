@@ -38,7 +38,16 @@ function renderLineItem(item) {
 }
 
 function renderEmptyState() {
-  return `<p class="cart-empty-state">Your cart is empty.</p>`;
+  return `
+    <div class="cart-empty-state">
+      <p class="cart-empty-state__message">Your cart is empty.</p>
+      ${renderButton({
+        variant: "primary-brand",
+        label: "Return to Menu",
+        actionId: "return-to-menu",
+      })}
+    </div>
+  `;
 }
 
 function renderError(error) {
@@ -49,14 +58,19 @@ function renderError(error) {
 export function renderCartPage(state) {
   const hasItems = state.items.length > 0;
 
+  if (!hasItems) {
+    return `
+      <div class="cart-page">
+        ${renderError(state.error)}
+        ${renderEmptyState()}
+      </div>
+    `;
+  }
+
   return `
     <div class="cart-page">
       ${renderError(state.error)}
-      ${
-        hasItems
-          ? `<ul class="cart-line-items">${state.items.map(renderLineItem).join("")}</ul>`
-          : renderEmptyState()
-      }
+      <ul class="cart-line-items">${state.items.map(renderLineItem).join("")}</ul>
       <div class="cart-summary">
         <span class="cart-summary__label">Subtotal</span>
         <span class="cart-summary__value">${formatUSD(state.subtotal)}</span>
@@ -65,7 +79,6 @@ export function renderCartPage(state) {
         variant: "primary-brand",
         label: "Proceed to Checkout",
         actionId: "checkout",
-        disabled: !hasItems,
       })}
     </div>
   `;

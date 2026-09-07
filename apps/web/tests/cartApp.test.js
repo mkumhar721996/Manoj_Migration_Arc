@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { handleAction } from "../src/cart/cartApp.js";
 import { createCartStore } from "../src/cart/cartStore.js";
 import { renderCartBadge } from "../src/cart/cartBadge.js";
+import { renderCartPage } from "../src/cart/cartView.js";
 
 function createMemoryStorage(initial = {}) {
   const data = new Map(Object.entries(initial));
@@ -67,6 +68,27 @@ describe("handleAction: checkout", () => {
   });
 });
 
+describe("handleAction: return-to-menu", () => {
+  test("navigates to /menu when the CTA is selected", () => {
+    const store = createCartStore({
+      storage: createMemoryStorage(),
+      now: () => 1,
+      initialItems: [],
+    });
+    let navigatedTo = null;
+
+    handleAction({
+      actionId: "return-to-menu",
+      store,
+      navigate: (path) => {
+        navigatedTo = path;
+      },
+    });
+
+    assert.equal(navigatedTo, "/menu");
+  });
+});
+
 describe("handleAction: increment/decrement", () => {
   test("dispatches increment to the store for the given item id", () => {
     const store = createCartStore({
@@ -126,5 +148,33 @@ describe("cart badge reacts to store subscription", () => {
     handleAction({ actionId: "decrement", itemId: "margherita", store, navigate: () => {} });
 
     assert.equal(badgeMarkup, "");
+  });
+});
+
+describe("cart transitions to empty state after removing the last item", () => {
+  test("re-render shows the empty state and no navigation/reload occurs", () => {
+    const store = createCartStore({
+      storage: createMemoryStorage(),
+      now: () => 1,
+      initialItems: [makeItem({ quantity: 1 })],
+    });
+    const navigateCalls = [];
+    let latestMarkup = renderCartPage(store.getState());
+    store.subscribe((state) => {
+      latestMarkup = renderCartPage(state);
+    });
+
+    handleAction({
+      actionId: "decrement",
+      itemId: "margherita",
+      store,
+      navigate: (path) => navigateCalls.push(path),
+    });
+
+    assert.equal(store.getState().items.length, 0);
+    assert.match(latestMarkup, /empty/i);
+    assert.doesNotMatch(latestMarkup, /cart-line-item/);
+    assert.doesNotMatch(latestMarkup, /data-action="checkout"/);
+    assert.equal(navigateCalls.length, 0);
   });
 });

@@ -77,11 +77,25 @@ describe("renderCartPage with no items", () => {
     assert.match(html, /empty/i);
   });
 
-  test("shows the 'Proceed to Checkout' CTA in a disabled state", () => {
-    assert.match(
-      html,
-      /data-action="checkout"[^>]*disabled/,
-    );
+  test("shows a single CTA prompting a return to the menu", () => {
+    assert.match(html, /data-action="return-to-menu"/);
+    assert.match(html, /Return to Menu/);
+    const ctaMatches = html.match(/data-action="/g) ?? [];
+    assert.equal(ctaMatches.length, 1);
+  });
+
+  test("does not render any line items", () => {
+    assert.doesNotMatch(html, /cart-line-item/);
+  });
+
+  test("does not render the subtotal", () => {
+    assert.doesNotMatch(html, /cart-summary/);
+    assert.doesNotMatch(html, /Subtotal/);
+  });
+
+  test("does not render the 'Proceed to Checkout' CTA", () => {
+    assert.doesNotMatch(html, /data-action="checkout"/);
+    assert.doesNotMatch(html, /Proceed to Checkout/);
   });
 });
 
