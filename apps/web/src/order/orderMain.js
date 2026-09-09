@@ -1,5 +1,6 @@
 import { mountOrderApp } from "./orderApp.js";
 import { createOrderGateway } from "./orderGateway.js";
+import { mountFooter } from "../components/footer.js";
 
 const DEMO_PRODUCT = {
   id: "margherita",
@@ -23,3 +24,5 @@ mountOrderApp({
   gateway: createOrderGateway(),
   auth: auth(),
 });
+
+mountFooter(document.getElementById("site-footer"));
