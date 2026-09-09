@@ -1,19 +1,36 @@
 :root {
-  --color-bg-page: #fcfaf6;
-  --color-bg-surface: #ffffff;
-  --color-bg-surface-muted: #f3efe9;
-  --color-bg-inverse: #151212;
+  /* Color — semantic roles for the shared palette. Every color used in the
+     app must reference one of these tokens; no other file may declare a
+     --color-* custom property. */
+  --color-bg-page: #fcfaf6; /* page background */
+  --color-bg-surface: #ffffff; /* card/surface background */
+  --color-bg-surface-muted: #f3efe9; /* muted card/surface background */
+  --color-bg-inverse: #151212; /* header/footer background */
   --color-border-default: #ebe7df;
   --color-border-on-inverse: #ffffff;
-  --color-fg-default: #151212;
+  --color-fg-default: #151212; /* default body text */
   --color-fg-on-inverse: #ffffff;
   --color-fg-muted: #6b6661;
-  --color-brand-accent: #c82d25;
-  --color-accent-classic-tag: #2a7043;
+  --color-brand-accent: #c82d25; /* primary CTAs / accents */
+  --color-success: #2a7043; /* success / delivery-positive text */
 
+  /* Typography — typeface families, plus the font-size and font-weight
+     scale. All font-size/font-weight declarations must use these tokens. */
   --font-display: "Fraunces", serif;
   --font-body: "Geist", sans-serif;
 
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing — the shared spacing scale. All padding/margin/gap declarations
+     must use these tokens. */
   --space-1: 2px;
   --space-2: 4px;
   --space-3: 6px;
@@ -32,6 +49,7 @@
   --space-16: 80px;
   --space-17: 120px;
 
+  /* Radius / shadow */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;

@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  background: var(--color-bg-page);
+  color: var(--color-fg-default);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.button {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-5) var(--space-9);
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button--primary-dark {
+  background: var(--color-bg-inverse);
+  color: var(--color-fg-on-inverse);
+}
+
+.button--primary-brand {
+  background: var(--color-brand-accent);
+  color: var(--color-fg-on-inverse);
+}
