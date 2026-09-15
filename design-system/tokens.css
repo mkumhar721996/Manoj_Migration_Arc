@@ -1,0 +1,47 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --color-fg: #111827; /** Default text color on light surfaces. Paired with color-bg, meets WCAG AA (>15:1) for normal text. */
+  --color-bg: #ffffff; /** Default page background. */
+  --color-surface: #f9fafb; /** Slightly recessed surface used for cards and chips, distinct from the page background. */
+  --color-primary: #2563eb; /** Brand/interactive accent color for primary actions. */
+  --color-primary-fg: #ffffff; /** Text/icon color placed on top of color-primary. Meets WCAG AA (~5.2:1) against it. */
+  --color-border: #d1d5db; /** Default hairline border color for cards, inputs, and chips. */
+  --color-muted-fg: #6b7280; /** Secondary/muted text color, e.g. captions and helper text. */
+  --space-1: 4px; /** Smallest spacing step, used for tight gaps like icon-to-label. */
+  --space-2: 8px; /** Compact spacing step, used for internal padding of small controls. */
+  --space-3: 12px; /** Standard spacing step, used for button/input padding. */
+  --space-4: 16px; /** Roomy spacing step, used for card padding and layout gaps. */
+  --radius-sm: 4px; /** Corner radius for small controls like chips and inputs. */
+  --radius-md: 8px; /** Corner radius for buttons. */
+  --radius-lg: 16px; /** Corner radius for cards and other large containers. */
+  --font-size-sm: 12px; /** Small text size, e.g. captions and chips. */
+  --font-size-md: 16px; /** Body text size, the default for UI copy. */
+  --font-size-lg: 20px; /** Heading/emphasis text size. */
+  --font-family-base: Inter, system-ui, -apple-system, sans-serif; /** Default UI font stack. */
+  --font-weight-regular: 400; /** Default body text weight. */
+  --font-weight-bold: 600; /** Emphasis weight, used for buttons and headings. */
+  --line-height-base: 1.5; /** Unitless default line-height multiplier for body copy. */
+  --shadow-sm: 0px 1px 3px 0px rgb(6.7% 9.4% 15.3% / 0.08); /** Subtle elevation for cards. */
+  --button-primary-background: var(--color-primary); /** Background of the primary button. */
+  --button-primary-foreground: var(--color-primary-fg); /** Text/icon color of the primary button. */
+  --button-primary-border: var(--color-primary); /** Border color of the primary button. */
+  --button-secondary-background: var(--color-bg); /** Background of the secondary (outline) button. */
+  --button-secondary-foreground: var(--color-primary); /** Text/icon color of the secondary button. */
+  --button-secondary-border: var(--color-primary); /** Border color of the secondary button. */
+  --button-radius: var(--radius-md); /** Corner radius shared by all button variants. */
+  --card-default-background: var(--color-surface); /** Background of the default card. */
+  --card-default-border: var(--color-border); /** Border color of the default card. */
+  --card-default-radius: var(--radius-lg); /** Corner radius of the default card. */
+  --card-default-padding: var(--space-4); /** Internal padding of the default card. */
+  --chip-default-background: var(--color-surface); /** Background of the default chip. */
+  --chip-default-foreground: var(--color-fg); /** Text color of the default chip. */
+  --chip-default-border: var(--color-border); /** Border color of the default chip. */
+  --chip-default-radius: var(--radius-sm); /** Corner radius of the default chip. */
+  --input-default-background: var(--color-bg); /** Background of default form controls. */
+  --input-default-foreground: var(--color-fg); /** Text color of default form controls. */
+  --input-default-border: var(--color-border); /** Border color of default form controls. */
+  --input-default-radius: var(--radius-sm); /** Corner radius of default form controls. */
+}

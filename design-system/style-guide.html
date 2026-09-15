@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Design System Style Guide</title>
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="prototype-utils.css" />
+<style>
+  /* Layout for this style guide page only — not part of the design system itself. */
+  .sg-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-4);
+  }
+  .sg-section {
+    margin-bottom: calc(var(--space-4) * 3);
+  }
+  .sg-section > h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+  .sg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-4);
+  }
+  .sg-swatch {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .sg-swatch-color {
+    height: 64px;
+  }
+  .sg-swatch-label {
+    padding: var(--space-2);
+    font-size: var(--font-size-sm);
+    background: var(--color-bg);
+  }
+  .sg-swatch-label code {
+    display: block;
+    color: var(--color-muted-fg);
+  }
+  .sg-dimension-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+  .sg-dimension-bar {
+    background: var(--color-primary);
+  }
+  .sg-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .sg-swatch-transparent {
+    background-image:
+      linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  }
+</style>
+</head>
+<body>
+<div class="sg-page">
+  <header class="sg-section">
+    <h1 class="text-lg text-bold">Design System Style Guide</h1>
+    <p class="text-muted">Every token in <code>tokens.json</code> and every class in <code>prototype-utils.css</code>, rendered live from <code>tokens.css</code>.</p>
+  </header>
+
+  <section class="sg-section">
+    <h2>Color tokens</h2>
+    <div class="sg-grid">
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background: var(--color-fg);"></div>
+        <div class="sg-swatch-label">color-fg<code>--color-fg</code></div>
+      </div>
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background: var(--color-bg);"></div>
+        <div class="sg-swatch-label">color-bg<code>--color-bg</code></div>
+      </div>
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background: var(--color-surface);"></div>
+        <div class="sg-swatch-label">color-surface<code>--color-surface</code></div>
+      </div>
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background: var(--color-primary);"></div>
+        <div class="sg-swatch-label">color-primary<code>--color-primary</code></div>
+      </div>
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background: var(--color-primary-fg); border-bottom: 1px solid var(--color-border);"></div>
+        <div class="sg-swatch-label">color-primary-fg<code>--color-primary-fg</code></div>
+      </div>
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background: var(--color-border);"></div>
+        <div class="sg-swatch-label">color-border<code>--color-border</code></div>
+      </div>
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background: var(--color-muted-fg);"></div>
+        <div class="sg-swatch-label">color-muted-fg<code>--color-muted-fg</code></div>
+      </div>
+    </div>
+    <p class="sg-row" style="margin-top: var(--space-4);">
+      <span style="background: var(--color-bg); color: var(--color-fg); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+        color-fg on color-bg — AA contrast for normal text
+      </span>
+    </p>
+  </section>
+
+  <section class="sg-section">
+    <h2>Spacing tokens</h2>
+    <div class="sg-dimension-row">
+      <div class="sg-dimension-bar" style="width: var(--space-1); height: 20px;"></div>
+      <code>space-1 — --space-1</code>
+    </div>
+    <div class="sg-dimension-row">
+      <div class="sg-dimension-bar" style="width: var(--space-2); height: 20px;"></div>
+      <code>space-2 — --space-2</code>
+    </div>
+    <div class="sg-dimension-row">
+      <div class="sg-dimension-bar" style="width: var(--space-3); height: 20px;"></div>
+      <code>space-3 — --space-3</code>
+    </div>
+    <div class="sg-dimension-row">
+      <div class="sg-dimension-bar" style="width: var(--space-4); height: 20px;"></div>
+      <code>space-4 — --space-4</code>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Radius tokens</h2>
+    <div class="sg-row">
+      <div style="width: 64px; height: 64px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);"></div>
+      <code>radius-sm — --radius-sm</code>
+    </div>
+    <div class="sg-row">
+      <div style="width: 64px; height: 64px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md);"></div>
+      <code>radius-md — --radius-md</code>
+    </div>
+    <div class="sg-row">
+      <div style="width: 64px; height: 64px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg);"></div>
+      <code>radius-lg — --radius-lg</code>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Type scale</h2>
+    <p style="font-size: var(--font-size-sm);" class="text-sm">font-size-sm — The quick brown fox jumps over the lazy dog.</p>
+    <p style="font-size: var(--font-size-md);" class="text-md">font-size-md — The quick brown fox jumps over the lazy dog.</p>
+    <p style="font-size: var(--font-size-lg);" class="text-lg">font-size-lg — The quick brown fox jumps over the lazy dog.</p>
+    <p style="font-family: var(--font-family-base);">font-family-base — <code>--font-family-base</code></p>
+    <p style="font-weight: var(--font-weight-regular);">font-weight-regular (400) — <code>--font-weight-regular</code></p>
+    <p style="font-weight: var(--font-weight-bold);">font-weight-bold (600) — <code>--font-weight-bold</code></p>
+    <p>line-height-base — <code>--line-height-base</code></p>
+  </section>
+
+  <section class="sg-section">
+    <h2>Shadow token</h2>
+    <div style="width: 120px; height: 64px; background: var(--color-bg); border-radius: var(--radius-md); box-shadow: var(--shadow-sm);"></div>
+    <p class="text-sm text-muted">shadow-sm — <code>--shadow-sm</code></p>
+  </section>
+
+  <section class="sg-section">
+    <h2>Buttons</h2>
+    <div class="sg-row">
+      <button class="btn btn-primary">Primary action</button>
+      <button class="btn btn-secondary">Secondary action</button>
+    </div>
+    <p class="text-sm text-muted">.btn.btn-primary and .btn.btn-secondary, using the button.* alias tokens.</p>
+  </section>
+
+  <section class="sg-section">
+    <h2>Cards</h2>
+    <div class="card" style="max-width: 320px;">
+      <h3 class="card-title">Card title</h3>
+      <p class="card-body">This card uses the card.default.* alias tokens for background, border, radius, and padding.</p>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Chips</h2>
+    <div class="sg-row">
+      <span class="chip">Default chip</span>
+      <span class="chip">Another chip</span>
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Form controls</h2>
+    <div style="max-width: 320px;">
+      <label class="label" for="sg-input">Email address</label>
+      <input class="input" type="email" id="sg-input" placeholder="you@example.com" />
+    </div>
+  </section>
+
+  <section class="sg-section">
+    <h2>Typography &amp; spacing utilities</h2>
+    <div class="stack">
+      <p class="text-sm">.text-sm</p>
+      <p class="text-md">.text-md</p>
+      <p class="text-lg">.text-lg</p>
+      <p class="text-bold">.text-bold</p>
+      <p class="text-muted">.text-muted</p>
+      <div class="inline">
+        <span class="chip">.inline</span>
+        <span class="chip">gap utility</span>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
